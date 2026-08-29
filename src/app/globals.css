@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --header-height: 68px;
+    --player-height: 76px;
+  }
+
+  * {
+    border-color: theme('colors.ink.600');
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink text-bone font-sans antialiased;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Editorial display type: tight, oversized, uppercase. */
+  h1, h2, h3 {
+    @apply font-display uppercase tracking-tight;
+  }
+
+  ::selection {
+    background: theme('colors.gold.500');
+    color: #07070a;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme('colors.gold.400');
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #282833;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.gold.700');
+  }
+
+  input, textarea, select {
+    @apply bg-ink-800 text-bone;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-8xl px-4 sm:px-6 lg:px-10;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-gold-500;
+  }
+
+  .gold-text {
+    background: theme('backgroundImage.gold-sheen');
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hairline {
+    @apply border-b border-ink-600;
+  }
+
+  .panel {
+    @apply relative rounded-sm border border-ink-600 bg-ink-800/80 shadow-inset;
+  }
+
+  .panel-hover {
+    @apply transition-all duration-300 ease-premium hover:-translate-y-0.5 hover:border-gold-700/70 hover:shadow-lift;
+  }
+
+  /* Horizontal entertainment rails with snap + hidden scrollbar. */
+  .rail {
+    @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-padding-left: 1rem;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    @apply snap-start shrink-0;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden bg-ink-700;
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 700px 100%;
+    background-repeat: no-repeat;
+    @apply animate-shimmer;
+  }
+
+  /* Subtle film grain over cinematic imagery. */
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .prose-editorial {
+    @apply text-[1.0625rem] leading-[1.75] text-bone-muted;
+  }
+  .prose-editorial p {
+    @apply mb-6;
+  }
+  .prose-editorial h2 {
+    @apply mb-4 mt-10 font-display text-2xl uppercase tracking-tight text-bone sm:text-3xl;
+  }
+  .prose-editorial h3 {
+    @apply mb-3 mt-8 font-display text-xl uppercase tracking-tight text-bone;
+  }
+  .prose-editorial a {
+    @apply text-gold-400 underline underline-offset-4 hover:text-gold-300;
+  }
+  .prose-editorial blockquote {
+    @apply my-8 border-l-2 border-gold-500 pl-6 font-display text-xl uppercase leading-tight tracking-tight text-bone sm:text-2xl;
+  }
+  .prose-editorial ul {
+    @apply mb-6 list-disc space-y-2 pl-6;
+  }
+  .prose-editorial ol {
+    @apply mb-6 list-decimal space-y-2 pl-6;
+  }
+  .prose-editorial img {
+    @apply my-8 w-full;
+  }
+  .prose-editorial figcaption {
+    @apply -mt-6 mb-8 text-xs uppercase tracking-widest text-bone-dim;
+  }
+  .prose-editorial hr {
+    @apply my-10 border-ink-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
